@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Friday Overtime | Tryhackme | Writeup</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      max-width: 900px;
+      line-height: 1.6;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin: 10px 0;
+    }
+    h1, h2, h3 {
+      color: #333;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    a {
+      color: #0073e6;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html">← Back to Writeups</a>
+
+  <h1>Friday Overtime | Tryhackme | Writeup</h1>
+  <p><strong>Date:</strong> April 4, 2025</p>
+
+  <h2>1. Who shared the malware samples?</h2>
+  <p>After logging into the platform and reviewing the email, the individual who shared the malware samples was: <strong>Oliver Bennett</strong>.</p>
+  <img src="images/friday-overtime/friday-overtime-email.png">
+
+  <h2>2. What is the SHA1 hash of the file “pRsm.dll” inside samples.zip?</h2>
+  <p>Use the command <code>sha1sum</code> in terminal:</p>
+  <pre><code>$ sha1sum pRsm.dll</code></pre>
+  <img src="images/friday-overtime/friday-overtime-sha.png">
+
+  <h2>3. Which malware framework utilizes these DLLs as add-on modules?</h2>
+  <p><a href="https://www.welivesecurity.com/2023/04/26/evasive-panda-apt-group-malware-updates-popular-chinese-software/" target="_blank">Research</a> points to <strong>MgBot</strong> as the malware framework that uses these DLLs as add-on modules. </p>
+
+  <h2>4. Which MITRE ATT&CK Technique is linked to using pRsm.dll in this malware framework?</h2>
+  <p>Reading the same article as the one I provided about i found out the associated MITRE ATT&CK Technique is <strong>T1123</strong>.</p>
+  <img src="images/friday-overtime/friday-overtime-mitre.png">
+
+  <h2>5. What is the CyberChef defanged URL of the malicious download location first seen on 2020–11–02?</h2>
+  <p>The defanged URL using CyberChef:</p>
+  <pre><code>hxxp[://]update[.]browser[.]qq[.]com/qmbs/QQ/QQUrlMgr_QQ88_4296[.]exe</code></pre>
+  <img src="images/friday-overtime/friday-overtime-cyberchef.png">
+
+  <h2>6. What is the CyberChef defanged IP address of the C&C server first detected on 2020–09–14 using these modules?</h2>
+  <p>The defanged C&C server IP:</p>
+  <pre><code>122[.]10[.]90[.]12</code></pre>
+  <img src="images/friday-overtime/friday-overtime-cyberchef2.png">
+
+  <h2>7. What is the SHA1 hash of the spyagent family spyware hosted on the same IP targeting Android devices on November 16, 2022?</h2>
+  <p>Using VirusTotal on the related IP, the Android spyware sample SHA1 is:</p>
+  <pre><code>1c1fe906e822012f6235fcc53f601d006d15d7be</code></pre>
+  <img src="images/friday-overtime/friday-overtime-sha2.png"
+
+</body>
+</html>
