@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Windows Server 2022 Setup</title>
+    <style>
+        ul.requirements li {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Requirements</h1>
+    <ul class="requirements">
+        <li>
+            <strong>Windows Server 2022 ISO</strong><br>
+            <a href="https://info.microsoft.com/ww-landing-windows-server-2022.html" target="_blank">Download Here</a><br>
+            Just fill out the form with “legit” info and download it.
+        </li>
+        <li>
+            <strong>VirtualBox</strong><br>
+            <a href="https://www.virtualbox.org/wiki/Downloads" target="_blank">Download Here</a><br>
+            You could also use VMware.
+        </li>
+        <li>
+            You will also need a host computer with decent specs to run a virtual machine and also that has at least 32GB of free storage.
+        </li>
+    </ul>
+
+    <h1>How to create and install Windows Server 2022.</h1>
+    <p>I’ll walk you through the steps to set up a virtual machine running Windows Server 2022 using VirtualBox.</p>
+
+    <h2>Virtual machine creation</h2>
+    <ol>
+        <li>Open VirtualBox and click new.</li>
+        <li>In the window that pops up, name your virtual machine.</li>
+        <li>Under ISO image, find and select your Windows 2022 ISO. The file you downloaded earlier.</li>
+        <li>Check the box that says "skip unattended installation", then click Next.<br>
+            <img src="images/windows-server-2022/vm1.png" alt="VirtualBox New VM">
+        </li>
+        <li>Under hardware, select the amount of resources you want to allocate. I suggest a minimum of 4GB of RAM and at least 2 cores. Click Next.<br>
+            <img src="images/windows-server-2022/vm2.png" alt="VirtualBox Resources">
+        </li>
+        <li>For hard disk storage choose any amount you want above 32 GB. That's the required minimum. Click Finish when done.</li>
+        <li>You should now see it on the left-hand side. Right-click on it and go to settings.</li>
+        <li>Head to the Network section and select your preferred network type.<br>
+            Here’s a quick breakdown:
+            <ul>
+                <li>NAT: Quick internet, no special setup.</li>
+                <li>Bridged: Makes the virtual machine like a real device on the network.</li>
+                <li>Internal: VMs talk to each other, but no one else.</li>
+                <li>Host-Only: VMs talk to the host and each other, but not the internet.</li>
+                <li>Generic: For custom configurations.</li>
+            </ul>
+        </li>
+        <li>Hit OK when you're done. Your virtual machine is now created. Next, we will install Windows Server 2022 on it.</li>
+    </ol>
+
+    <h2>Installing Windows Server 2022</h2>
+    <ol>
+        <li>Go to your virtual machine and double-click on it to run. Wait for the Windows prompt to pop up.</li>
+        <li>Select your language and then click Next.<br>
+            <img src="images/windows-server-2022/ws1.png" alt="Windows Server 2022 installation">
+        </li>
+        <li>Select Windows Server 2022 standard evaluation (Desktop Experience)<br>(If you choose the first option, it’s just command-line—no GUI.)<br>
+            <img src="images/windows-server-2022/ws2.png" alt="Windows Server 2022 installation">
+        </li>
+        <li>Accept the terms.</li>
+        <li>Select Custom installation.</li>
+        <li>Select your drive. And click Next.<br>
+            <img src="images/windows-server-2022/ws3.png" alt="Windows Server 2022 installation">
+        </li>
+        <li>The installation will begin. It might take a little while and restart a couple of times—just let it do its thing.</li>
+        <li>After it's done it'll ask you to set up a password for the admin account. Set one up and hit Finish. Congratulations! You have just created a virtual machine running Windows Server 2022!</li>
+    </ol>
+
+    <p><a href="index.html">← Back to Tutorials</a></p>
+</body>
+</html>
