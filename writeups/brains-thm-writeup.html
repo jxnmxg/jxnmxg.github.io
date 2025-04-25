@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TryHackMe: Brains</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px;
+            max-width: 900px;
+            line-height: 1.6;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        img.noborder {
+            border: none;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+        a {
+            color: #0073e6;
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html">← Back to Writeups</a>
+
+    <h1>TryHackMe: Brains</h1>
+    <p><em>April 25, 2025</em></p>
+
+    <h2>What is the content of flag.txt in the user's home folder?</h2>
+
+    <p>To find that answer let's do some recon first.<br>
+    Let's start with a Nmap Scan</p>
+
+    <pre><code>nmap -sC -sV -p- *IP ADDRESS*</code></pre>
+
+    <p>And found the following</p>
+    <img src="images/brains/brains-1.png" alt="Nmap Scan Result">
+
+    <p>Ports 22, 80, 35355, and 50000 are open.<br>
+    Let's see what's on port 80<br>
+    Looks like the website on port 80 is nothing.<br>
+    Let's check out port 50000</p>
+
+    <p>It running team city. We can see the version it's running underneath the login button. Let's see if there is any CVEs for that version. Using metasploit I found some.<br>
+    <strong>CVE-2024-27198</strong> is the one I'll be using.</p>
+    <img src="images/brains/brains-2.png" alt="Metasploit CVE List">
+
+    <p>Let's select it</p>
+    <img src="images/brains/brains-3.png" alt="Metasploit Module Selected">
+
+    <p>Let's see the options</p>
+    <img src="images/brains/brains-4.png" alt="Metasploit Options">
+
+    <p>Looks like we just have to change the RHOST and RPORT</p>
+
+    <p>Set the RHOST to the IP of the victim</p>
+    <img src="images/brains/brains-5.png" alt="Set RHOST">
+
+    <p>Set RPORT to 50000</p>
+    <img src="images/brains/brains-6.png" alt="Set RPORT">
+
+    <p>Now run it</p>
+    <img src="images/brains/brains-7.png" alt="Run Exploit">
+
+    <p>You now have a shell! Time to find the flag<br>
+    It's in /home/ubuntu</p>
+    <img src="images/brains/brains-8.png" alt="Flag Location">
+
+    <h2>Now let's move onto part 2 of the room.</h2>
+
+    <p>You'll need basic splunk understanding for this part.<br>
+    THM has some rooms that will teach you how to use it.<br>
+    <a href="https://tryhackme.com/room/splunk101" target="_blank">https://tryhackme.com/room/splunk101</a></p>
+
+    <p>Log into splunk with the info you are provided. (it may just log you in automatically after going to the IP address)<br>
+    Click on search and reporting and get ready to answer the questions.</p>
+
+    <h3>What is the name of the backdoor user which was created on the server after exploitation?</h3>
+    <p>Search for this:</p>
+    <pre><code>source="/var/log/auth.log" useradd</code></pre>
+    <img src="images/brains/brains-9.png" alt="User Add Log">
+
+    <h3>What is the name of the malicious-looking package installed on the server?</h3>
+    <p>Search for:</p>
+    <pre><code>source="/var/log/dpkg.log" install date_month="july"</code></pre>
+    <p>I used that to search for new installs near the time the user from the previous question was created.</p>
+    <img src="images/brains/brains-10.png" alt="Malicious Package">
+
+    <h3>What is the name of the plugin installed on the server after successful exploitation?</h3>
+    <p>Search for:</p>
+    <pre><code>source="/opt/teamcity/TeamCity/logs/teamcity-activities.log" plugin</code></pre>
+    <img src="images/brains/brains-11.png" alt="Plugin Installed">
+
+    <h2>Conclusion</h2>
+    <p>The red team of the room is pretty easy but the blue team can be challenging if you have no experience with splunk.<br>
+    I highly suggest learning the basics of splunk as it is a very common tool in the cybersecurity world.<br>
+    I hope I could help you with this walkthrough. Good luck!</p>
+    <img src="images/brains/thankyou.jpg" alt="Conclusion Image" class="noborder">
+    <p>Thanks for reading!</p>
+</body>
+</html>
+
