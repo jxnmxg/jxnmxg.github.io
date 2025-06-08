@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TryHackMe: All In One</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>TryHackMe: All In One</h1>
+    <p><strong>Room Link:</strong> <a href="https://tryhackme.com/room/allinonemj" target="_blank">https://tryhackme.com/room/allinonemj</a></p>
+    <p>All-in-One is a simple room designed for beginners. There are multiple exploitations you can use to help you find the flags.</p>
+
+    <h2>Techniques Used</h2>
+    <ul>
+        <li>Directory enumeration</li>
+        <li>Reverse shell</li>
+        <li>Privilege escalation via GTFOBins</li>
+    </ul>
+
+    <h2>Tools Used</h2>
+    <ul>
+        <li>nmap</li>
+        <li>gobuster</li>
+        <li>cyber chefs</li>
+        <li>Gtfobins</li>
+    </ul>
+
+    <h2>USER FLAG</h2>
+    <p>Let's start with an Nmap scan to find open ports. I’ll be using this command
+        <pre><code>nmap -sV -sC IP</code></pre></p>
+    <img src="images/all-in-one/1.png" alt="Nmap Scan Result">
+
+    <p>It looks like ports 21, 22, and 80 are open. I’ll try to enumerate the website for some directories by using gobuster.</p>
+    <img src="images/all-in-one/2.png" alt="Gobuster Result">
+
+    <p>Looks like there are 2 directories. /hackathons is interesting. I check the source code and find what seems to be a password that is encoded using Vigenere. I’ll decode it on cyber chefs.</p>
+    <img src="images/all-in-one/3.png" alt="hackathons Directory">
+    <img src="images/all-in-one/4.png" alt="Source Code">
+    <img src="images/all-in-one/5.png" alt="CyberChef Result">
+
+    <p>So it looks like it was a password. Now i just need to find a username. Let's check out the /wordpress directory. I found a user named “elyana” in one of the articles. I was able to log into the WordPress panel using the password and username combo we found.</p>
+
+    <p>Now this feels familiar to a lot of other tryhackme rooms I have done. I'll try to upload a .php and set up a reverse shell. Let's go to appearance and edit the 404.php and paste our reverse shell<br>
+    I’m using this as my shell: <a href="https://github.com/pentestmonkey/php-reverse-shell/blob/master/php-reverse-shell.php" target="_blank">php-reverse-shell</a></p>
+
+    <p>We want to change the $ip with our machine's IP and $port with the port we will use to listen. You may leave 1234 if you want to use that port. Go and replace the current 404.php with the edited script. Just paste it and save it.</p>
+    <img src="images/all-in-one/6.png" alt="404 Edit">
+
+    <p>Now open up a terminal and type the command <pre><code>nc -nlvp **PORT**</code></pre> Run it</p>
+    <img src="images/all-in-one/7.png" alt="Netcat Listening">
+
+    <p>Now back in your browser go to http://*LAB-IP*/wordpress/wp-content/themes/twentytwenty/404.php<br>
+    Now go back to your terminal and you should now see a connection.</p>
+
+    <p>The shell we have is annoying so type <pre><code>python -c 'import pty; pty.spawn("/bin/bash")'</code></pre> to get a better shell. I tried to see if we were done but no, looks like we need to find the password.</p>
+    <img src="images/all-in-one/8.png" alt="Password Needed">
+
+    <p>Now I kinda threw a hail mary and searched for all .txts and got lucky the last file was the one we needed.<br>
+    <code>find / -type f -name "*.txt" 2>/dev/null</code></p>
+    <img src="images/all-in-one/9.png" alt="Find .txt Files">
+    <img src="images/all-in-one/10.png" alt="Target File Found">
+
+    <p>Now that we have the password let's switch to that user and get the flag. Looks like we have to decode the .txt to get the flag. It's using base64. Now let's go and find the root flag!</p>
+    <img src="images/all-in-one/11.png" alt="User">
+    <img src="images/all-in-one/12.png" alt="User Flag">
+
+    <h2>Root Flag</h2>
+    <p>Now still logged in as elyana let's run <code>sudo -l</code>.</p>
+    <img src="images/all-in-one/13.png" alt="sudo -l output">
+
+    <p>Looks like we can use socat to get root. Let's go to gtfobins and see what we have to do.</p>
+    <img src="images/all-in-one/14.png" alt="GTFOBins Socat">
+
+    <p>Easy, paste that into the terminal, and boom you are root. Decode the .txt using base64 and you are done with the room.</p>
+    <img src="images/all-in-one/15.png" alt="Root">
+    <img src="images/all-in-one/16.png" alt="Root Flag">
+    <img src="images/all-in-one/17.png" alt="Root Flag Decoded">
+
+    <p>NOTE: I forgot to grab some screenshots the first time so that's why some screenshots have different IP addresses.</p>
+    <img src="images/all-in-one/18.png" alt="Hehe" style="display: block; margin: auto; border: none;">
+
+
+    <a href="index.html" class="back-link">← Back to Writeups</a>
+</body>
+</html>
