@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Snapped Phish-ing Line | Tryhackme | Writeup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            background-image: 
+                radial-gradient(at 20% 50%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(10px);
+      padding: 50px;
+      border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+        h1 {
+            color: #60a5fa;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+    h2 {
+            color: #60a5fa;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    h3 {
+            color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 15px;
+            color: #cbd5e1;
+      font-size: 1.05rem;
+    }
+
+    a {
+            color: #60a5fa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+            color: #a78bfa;
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 30px;
+      text-decoration: none;
+      color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f87171;
+            font-size: 0.95em;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+    }
+
+    pre {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      border: none;
+            color: #cbd5e1;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <a href="index.html" class="back-link" style="margin-top: 0; margin-bottom: 20px;">← Back to Writeups</a>
+
+  <h1>Snapped Phish-ing Line</h1>
+  <p><strong>Date:</strong> Jan 18, 2026</p>
+  <p><strong>Room Link:</strong> <a href="https://tryhackme.com/room/snappedphishingline" target="_blank">https://tryhackme.com/room/snappedphishingline</a></p>
+
+  <h2>Question 1 — Who is the individual who received an email attachment containing a PDF?</h2>
+  <p>Answer -- <strong>William McClean</strong></p>
+  <p>Open up all the emails and then check who is the one with the .pdf.</p>
+  <img src="images/Snapped-Phish-ing/Snapped1.png">
+
+  <h2>Question 2 — What email address was used by the adversary to send the phishing emails.</h2>
+  <p>Answer -- <strong>Accounts.Payable@groupmarketingonline.icu</strong></p>
+  <p>Read the email from the first question.</p>
+  <img src="images/Snapped-Phish-ing/Snapped2.png">
+
+  <h2>Question 3 — What is the redirection URL to the phishing page for the individual Zoe Duncan?</h2>
+  <p>Answer -- <strong>hxxp[://]kennaroads[.]buzz/data/Update365/office365/40e7baa2f826a57fcf04e5202526f8bd/?email=zoe[.]duncan@swiftspend[.]finance&error</strong></p>
+  <p>View the .html in any text editor and find the url. Then go on cyberchefs and defang it.</p>
+  <img src="images/Snapped-Phish-ing/Snapped3.png">
+
+  <h2>Question 4 — What is the URL to the .zip archive of the phishing kit?</h2>
+  <p>Answer -- <strong>hxxp[://]kennaroads[.]buzz/data/Update365[.]zip</strong></p>
+  <p>Enumerate the site and you'll find the /data/ directory.</p>
+  <img src="images/Snapped-Phish-ing/Snapped4.png">
+
+  <h2>Question 5 — What is the SHA256 hash of the phishing kit archive?</h2>
+  <p>Answer -- <strong>Ba3c15267393419eb08c7b2652b8b6b39b406ef300ae8a18fee4d16b19ac9686</strong></p>
+  <p>Download the zip and then use the command sha256sum to find the hash.</p>
+  <img src="images/Snapped-Phish-ing/Snapped5.png">
+
+  <h2>Question 6 — When was the phishing kit archive first submitted? (format: YYYY-MM-DD HH:MM:SS UTC)</h2>
+  <p>Answer -- <strong>2020-04-08 21:55:50 UTC</strong></p>
+  <p>Paste the hash on</p>
+  <img src="images/Snapped-Phish-ing/Snapped6.png">
+
+  <h2>Question 7 — When was the SSL certificate the phishing domain used to host the phishing kit archive first logged? (format: YYYY-MM-DD)</h2>
+  <p>Answer -- <strong>2020-06-25</strong></p>
+  <p>View the hint for the answer.</p>
+
+  <h2>Question 8 — What was the email address of the user who submitted their password twice?</h2>
+  <p>Answer -- <strong>michael.ascot@swiftspend.finance</strong></p>
+  <p>View the log.txt and read the output to find who entered their password twice.</p>
+  <img src="images/Snapped-Phish-ing/Snapped8.png">
+
+  <h2>Question 9 — What was the email address used by the adversary to collect compromised credentials?</h2>
+  <p>Answer -- <strong>m3npat@yandex.com</strong></p>
+  <p>Ok so unzip the zip file we downloaded earlier. Now cd into the directory where its at and then use grep to find an email somewhere in the files. The answer we want for this question will be the @yandex email.</p>
+  <pre><code>grep -R "[A-Za-z0-9._%+-]\+@[A-Za-z0-9.-]\+" /path/to/directory</code></pre>
+  <img src="images/Snapped-Phish-ing/Snapped9.png">
+
+  <h2>Question 10 — The adversary used other email addresses in the obtained phishing kit. What is the email address that ends in "@gmail.com"?</h2>
+  <p>Answer -- <strong>jamestanner2299@gmail.com</strong></p>
+  <img src="images/Snapped-Phish-ing/Snapped10.png">
+
+  <h2>Question 11 — What is the hidden flag?</h2>
+  <p>Answer -- <strong>THM{pL4y_w1Th_tH3_URL}</strong></p>
+  <p>View the hint for some help on where to look. Looks like the url is at .flag.txt. We find some base64. Let's hop on to cyber chefs to get the flag. Looks like we have to reverse it to get the final flag.</p>
+  <img src="images/Snapped-Phish-ing/Snapped11.png">
+  <img src="images/Snapped-Phish-ing/Snapped12.png">
+
+  <a href="index.html" class="back-link">← Back to Writeups</a>
+  </div>
+</body>
+</html>
+
