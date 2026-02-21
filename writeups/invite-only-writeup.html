@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Invite Only | Tryhackme | Writeup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            background-image: 
+                radial-gradient(at 20% 50%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(10px);
+      padding: 50px;
+      border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+        h1 {
+            color: #60a5fa;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+    h2 {
+            color: #60a5fa;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    h3 {
+            color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    p {
+      margin-bottom: 15px;
+            color: #cbd5e1;
+      font-size: 1.05rem;
+    }
+
+    a {
+            color: #60a5fa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+            color: #a78bfa;
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 30px;
+      text-decoration: none;
+      color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f87171;
+            font-size: 0.95em;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+    }
+
+    pre {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      border: none;
+            color: #cbd5e1;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <a href="index.html" class="back-link" style="margin-top: 0; margin-bottom: 20px;">← Back to Writeups</a>
+
+  <h1>Invite Only</h1>
+  <p><strong>Date:</strong> 2/21/26</p>
+  <p><strong>Room Link:</strong> <a href="https://tryhackme.com/room/invite-only" target="_blank">https://tryhackme.com/room/invite-only</a></p>
+
+  <h2>Question 1 — What is the name of the file identified with the flagged SHA256 hash?</h2>
+  <p>Paste the provided hash into virustotal.</p>
+  <img src="images/invite-only/Invite-1.png">
+
+  <h2>Question 2 — What is the file type associated with the flagged SHA256 hash?</h2>
+  <p>Still in virus total, check the details tab.</p>
+  <img src="images/invite-only/Invite-2.png">
+
+  <h2>Question 3 — What are the execution parents of the flagged hash? List the names chronologically, using a comma as a separator. Note down the hashes for later use.</h2>
+  <p>Still in virustotal, check the relation tab.</p>
+  <img src="images/invite-only/Invite-3.png">
+
+  <h2>Question 4 — What is the name of the file being dropped? Note down the hash value for later use.</h2>
+  <p>Scroll a little further down in the same tab as the question above.</p>
+  <img src="images/invite-only/Invite-4.png">
+
+  <h2>Question 5 — Research the second hash in question 3 and list the four malicious dropped files in the order they appear (from up to down), separated by commas.</h2>
+  <p>Go on the virustotal page for the second hash. Go to the relations tab.</p>
+  <img src="images/invite-only/Invite-5.png">
+
+  <h2>Question 6 — Analyse the files related to the flagged IP. What is the malware family that links these files?</h2>
+  <p>View the files for the provided IP. Look around and you will find the family.</p>
+  <img src="images/invite-only/Invite-6.png">
+
+  <h2>Question 7 — What is the title of the original report where these flagged indicators are mentioned? Use Google to find the report</h2>
+  <p>Check the comments on the virustotal page for the IP.</p>
+  <img src="images/invite-only/Invite-7.png">
+
+  <h2>Question 8 — Which tool did the attackers use to steal cookies from the Google Chrome browser?</h2>
+  <p>Read the article from the question above.</p>
+  <img src="images/invite-only/Invite-8.png">
+
+  <h2>Question 9 — Which phishing technique did the attackers use? Use the report to answer the question.</h2>
+  <p>Continue reading the article.</p>
+  <img src="images/invite-only/Invite-9.png">
+
+  <h2>Question 10 — What is the name of the platform that was used to redirect a user to malicious servers?</h2>
+  <p>This one should be easy if you read the article.</p>
+
+  <a href="index.html" class="back-link">← Back to Writeups</a>
+  </div>
+</body>
+</html>
