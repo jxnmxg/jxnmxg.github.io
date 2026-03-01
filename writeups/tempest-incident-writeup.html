@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tempest Incident | Tryhackme | Writeup</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0e27;
+            background-image: 
+                radial-gradient(at 20% 50%, rgba(59, 130, 246, 0.08) 0px, transparent 50%),
+                radial-gradient(at 80% 80%, rgba(139, 92, 246, 0.08) 0px, transparent 50%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #e2e8f0;
+      line-height: 1.7;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9) 0%, rgba(15, 23, 42, 0.95) 100%);
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            backdrop-filter: blur(10px);
+      padding: 50px;
+      border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    }
+
+        h1 {
+            color: #60a5fa;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #60a5fa 0%, #a78bfa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+    h2 {
+            color: #60a5fa;
+      margin-top: 35px;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      font-weight: 600;
+    }
+
+    h3 {
+            color: #a78bfa;
+      margin-top: 25px;
+      margin-bottom: 12px;
+      font-size: 1.8rem;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    p {
+      margin-bottom: 15px;
+            color: #cbd5e1;
+      font-size: 1.05rem;
+    }
+
+    a {
+            color: #60a5fa;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+            color: #a78bfa;
+      text-decoration: underline;
+    }
+
+    .back-link {
+      display: inline-block;
+      padding: 12px 24px;
+      margin-top: 30px;
+      text-decoration: none;
+      color: white;
+            background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+            border: 1px solid rgba(96, 165, 250, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      font-weight: 500;
+    }
+
+    .back-link:hover {
+      transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(96, 165, 250, 0.3);
+      text-decoration: none;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+            border: 1px solid rgba(100, 116, 139, 0.3);
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    }
+
+    code {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #f87171;
+            font-size: 0.95em;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+    }
+
+    pre {
+            background: rgba(15, 23, 42, 0.8);
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    pre code {
+      background: none;
+      padding: 0;
+      border: none;
+            color: #cbd5e1;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 30px 20px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+  <a href="index.html" class="back-link" style="margin-top: 0; margin-bottom: 20px;">← Back to Writeups</a>
+
+  <h1>Tempest Incident</h1>
+  <p><strong>Date:</strong> 3/1/26</p>
+  <p><strong>Room Link:</strong> <a href="https://tryhackme.com/room/tempestincident" target="_blank">https://tryhackme.com/room/tempestincident</a></p>
+
+  <h3>Task 3</h3>
+
+  <h2>Question 1 — What is the SHA256 hash of the capture.pcapng file?</h2>
+  <p>Pretty easy just type in the Get-FileHash -Algorithm SHA256 FILENAME in powershell to find the answer.</p>
+  <img src="images/tempest/tempest-1.png">
+
+  <h2>Question 2 — What is the SHA256 hash of the sysmon.evtx file?</h2>
+  <img src="images/tempest/tempest-2.png">
+
+  <h2>Question 3 — What is the SHA256 hash of the windows.evtx file?</h2>
+  <img src="images/tempest/tempest-3.png">
+
+  <h3>Task 4</h3>
+
+  <h2>Question 1 — The user of this machine was compromised by a malicious document. What is the file name of the document?</h2>
+  <p>From the previous task follow the steps to get a timeline. Once I had it loaded it up I began to search for a lot of document extensions until I found one that got a lot of hits. I looked at the results and found the file.</p>
+  <img src="images/tempest/tempest-4.png">
+
+  <h2>Question 2 — What is the name of the compromised user and machine?</h2>
+  <p>Using the search from the question above just scroll over to the "Username" column.</p>
+  <img src="images/tempest/tempest-5.png">
+
+  <h2>Question 3 — What is the PID of the Microsoft Word process that opened the malicious document?</h2>
+  <p>Still using the same search just go over to the "Payload Detail" column and look around for the pid.</p>
+  <img src="images/tempest/tempest-6.png">
+
+  <h2>Question 4 — Based on Sysmon logs, what is the IPv4 address resolved by the malicious domain used in the previous question?</h2>
+  <p>Filter by the PID and Event Code 22 to find the IP.</p>
+  <img src="images/tempest/tempest-7.png">
+
+  <h2>Question 5 — What is the base64 encoded string in the malicious payload executed by the document?</h2>
+  <p>Clear all the current search filters. Go to Payload Data 4 Column and enter 496. Look around and you'll find the base64 string.</p>
+  <img src="images/tempest/tempest-8.png">
+
+  <h2>Question 6 — What is the CVE number of the exploit used by the attacker to achieve a remote code execution?</h2>
+  <p>Search up "MSDT.exe" CVEs on google and you'll find it.</p>
+  <img src="images/tempest/tempest-9.png">
+
+  <h3>Task 5</h3>
+
+  <h2>Question 1 — The malicious execution of the payload wrote a file on the system. What is the full target path of the payload?</h2>
+  <p>Decode the base64 from the last question. You will now have the filename we have to search for to find this answer.</p>
+  <img src="images/tempest/tempest-10.png">
+
+  <h2>Question 2 — The implanted payload executes once the user logs into the machine. What is the executed command upon a successful login of the compromised user?</h2>
+  <p>Search for explorer.exe and then you will notice one that looks malicious.</p>
+  <img src="images/tempest/tempest-11.png">
+
+  <h2>Question 3 — Based on Sysmon logs, what is the SHA256 hash of the malicious binary downloaded for stage 2 execution?</h2>
+  <p>Search for the file from the question above and you will find the hash.</p>
+
+  <h2>Question 4 — The stage 2 payload downloaded establishes a connection to a c2 server. What is the domain and port used by the attacker?</h2>
+  <p>Change the eventid to 22 and then you will find the URL. As for the port I just guessed 80 and it was right.</p>
+  <img src="images/tempest/tempest-13.png">
+
+  <h3>Task 6</h3>
+
+  <h2>Question 1 — What is the URL of the malicious payload embedded in the document?</h2>
+  <p>On wireshark use the filters I used in the image.</p>
+  <img src="images/tempest/tempest-14.png">
+
+  <h2>Question 2 — What is the encoding used by the attacker on the c2 connection?</h2>
+  <p>We can easily tell what encoding it's using just at a glance.</p>
+  <img src="images/tempest/tempest-15.png">
+
+  <h2>Question 3 — The malicious c2 binary sends a payload using a parameter that contains the executed command results. What is the parameter used by the binary?</h2>
+  <p>Take a close look at the picture below</p>
+  <img src="images/tempest/tempest-16.png">
+
+  <h2>Question 4 — The malicious c2 binary connects to a specific URL to get the command to be executed. What is the URL used by the binary?</h2>
+  <p>Look at the picture below.</p>
+  <img src="images/tempest/tempest-17.png">
+
+  <h2>Question 5 — What is the HTTP method used by the binary?</h2>
+  <img src="images/tempest/tempest-18.png">
+
+  <h2>Question 6 — Based on the user agent, what programming language was used by the attacker to compile the binary?</h2>
+  <p>Click on any packet and view the user agent.</p>
+  <img src="images/tempest/tempest-19.png">
+
+  <h3>Task 7</h3>
+
+  <h2>Question 1 — The attacker was able to discover a sensitive file inside the machine of the user. What is the password discovered on the aforementioned file?</h2>
+  <p>Search for packet 5893 and copy the base64 into cyberchefs</p>
+  <img src="images/tempest/tempest-20.png">
+
+  <h2>Question 2 — The attacker then enumerated the list of listening ports inside the machine. What is the listening port that could provide a remote shell inside the machine?</h2>
+  <p><strong>5985</strong></p>
+
+  <h2>Question 3 — The attacker then established a reverse socks proxy to access the internal services hosted inside the machine. What is the command executed by the attacker to establish the connection?</h2>
+  <p>Go back to timeline.exe and then search for first.exe. You will then find the answer in the Executable info section.</p>
+  <img src="images/tempest/tempest-21.png">
+
+  <h2>Question 4 — What is the SHA256 hash of the binary used by the attacker to establish the reverse socks proxy connection?</h2>
+  <p>Scroll left.</p>
+  <img src="images/tempest/tempest-22.png">
+
+  <h2>Question 5 — What is the name of the tool used by the attacker based on the SHA256 hash? Provide the answer in lowercase.</h2>
+  <p>Paste the hash from the question above on virustotal.</p>
+  <img src="images/tempest/tempest-23.png">
+
+  <h2>Question 6 — The attacker then used the harvested credentials from the machine. Based on the succeeding process after the execution of the socks proxy, what service did the attacker use to authenticate?</h2>
+  <p><strong>Winrm</strong></p>
+
+  <h3>Task 8</h3>
+
+  <h2>Question 1 — After discovering the privileges of the current user, the attacker then downloaded another binary to be used for privilege escalation. What is the name and the SHA256 hash of the binary?</h2>
+  <p>Back in wireshark I saw that a file named spf.exe was downloaded. I search for that in timeline and then found the hash.</p>
+  <img src="images/tempest/tempest-24.png">
+
+  <h2>Question 2 — Based on the SHA256 hash of the binary, what is the name of the tool used?</h2>
+  <p>Search for the hash on virustotal.</p>
+  <img src="images/tempest/tempest-25.png">
+
+  <h2>Question 3 — The tool exploits a specific privilege owned by the user. What is the name of the privilege?</h2>
+  <p>Use google to find the answer.</p>
+
+  <h2>Question 4 — Then, the attacker executed the tool with another binary to establish a c2 connection. What is the name of the binary?</h2>
+  <p>I saw this file being downloaded awhile ago on timeline. Final.exe</p>
+
+  <h2>Question 5 — The binary connects to a different port from the first c2 connection. What is the port used?</h2>
+  <p><strong>8080</strong></p>
+
+  <h3>Task 9</h3>
+
+  <h2>Question 1 — Upon achieving SYSTEM access, the attacker then created two users. What are the account names?</h2>
+  <p>Using the windows logs and then filter them by event id 4720 to find the accounts.</p>
+  <img src="images/tempest/tempest-26.png">
+
+  <h2>Question 2 — Prior to the successful creation of the accounts, the attacker executed commands that failed in the creation attempt. What is the missing option that made the attempt fail?</h2>
+  <p><strong>/add</strong></p>
+
+  <h2>Question 3 — Based on windows event logs, the accounts were successfully created. What is the event ID that indicates the account creation activity?</h2>
+  <p><strong>4720</strong></p>
+
+  <h2>Question 4 — The attacker added one of the accounts in the local administrator's group. What is the command used by the attacker?</h2>
+  <p>Go back to timeline and filter by final.exe. net localgroup administrators /add shion</p>
+
+  <h2>Question 5 — Based on windows event logs, the account was successfully added to a sensitive group. What is the event ID that indicates the addition to a sensitive local group?</h2>
+  <p><strong>4732</strong></p>
+
+  <h2>Question 6 — After the account creation, the attacker executed a technique to establish persistent administrative access. What is the command executed by the attacker to achieve this?</h2>
+  <p>Using the same filter as question 4 you should see this answer.</p>
+  <img src="images/tempest/tempest-27.png">
+
+  <a href="index.html" class="back-link">← Back to Writeups</a>
+  </div>
+</body>
+</html>
